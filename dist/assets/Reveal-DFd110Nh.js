@@ -1,6 +1,0 @@
-import{d,r as u,u as y,j as f,m as l}from"./index-Cwkj2Ifg.js";/**
- * @license lucide-react v0.475.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */const x=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["polyline",{points:"12 6 12 12 16 14",key:"68esgv"}]],v=d("Clock",x);function g(i={}){const{threshold:t=.15,rootMargin:n="0px",triggerOnce:e=!0}=i,s=u.useRef(null),[o,r]=u.useState(!1);return u.useEffect(()=>{const c=s.current;if(!c)return;const a=new IntersectionObserver(([p])=>{p.isIntersecting?(r(!0),e&&a.disconnect()):e||r(!1)},{threshold:t,rootMargin:n});return a.observe(c),()=>a.disconnect()},[t,n,e]),[s,o]}const R=({children:i,delay:t=0,duration:n=.65,className:e="",stagger:s=!1})=>{const[o,r]=g({threshold:.12,triggerOnce:!0});return y()?f.jsx(l.div,{ref:o,initial:{opacity:0},animate:r?{opacity:1}:{opacity:0},transition:{duration:.25,delay:t},className:e,children:i}):f.jsx(l.div,{ref:o,initial:{opacity:0,y:24,filter:"blur(8px)"},animate:r?{opacity:1,y:0,filter:"blur(0px)"}:{opacity:0,y:24,filter:"blur(8px)"},transition:{duration:n,delay:t,ease:[.22,1,.36,1]},className:e,children:i})};export{v as C,R,g as u};
