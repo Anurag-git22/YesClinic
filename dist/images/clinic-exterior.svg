@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="extBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDFAF7"/>
+      <stop offset="50%" stop-color="#FBEDEA"/>
+      <stop offset="100%" stop-color="#F3E7DD"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#extBg)"/>
+
+  <!-- Building Façade abstract lines -->
+  <g transform="translate(250, 150)">
+    <rect x="0" y="0" width="300" height="220" rx="16" fill="#FFFFFF" stroke="#7A1512" stroke-width="2" stroke-opacity="0.2"/>
+    <!-- Glass entrance -->
+    <rect x="100" y="80" width="100" height="140" rx="6" fill="#FBEDEA" stroke="#D42B24" stroke-width="2"/>
+    <line x1="150" y1="80" x2="150" y2="220" stroke="#D42B24" stroke-width="1.5"/>
+    <!-- Windows -->
+    <rect x="30" y="40" width="50" height="60" rx="4" fill="#FDFAF7" stroke="#7A1512" stroke-opacity="0.3"/>
+    <rect x="220" y="40" width="50" height="60" rx="4" fill="#FDFAF7" stroke="#7A1512" stroke-opacity="0.3"/>
+    
+    <!-- Signboard -->
+    <rect x="50" y="-30" width="200" height="36" rx="8" fill="#7A1512"/>
+    <text x="150" y="-8" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="12" font-weight="700">YES DAY CARE CLINIC</text>
+  </g>
+
+  <!-- Typography Labels -->
+  <text x="400" y="440" text-anchor="middle" fill="#7A1512" font-family="system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="1">GROUND FLOOR CLINIC ENTRANCE</text>
+  <text x="400" y="470" text-anchor="middle" fill="#D42B24" font-family="system-ui, sans-serif" font-size="14" font-weight="600">OPPOSITE KUDAL POLICE STATION, SINDHUDURG</text>
+</svg>

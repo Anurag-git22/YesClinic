@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand Palette Variables */
+  --crimson: #D42B24;
+  --crimson-lit: #F04438;
+  --maroon: #7A1512;
+  --ink: #2B1A18;
+  --bg: #FDFAF7;
+  --surface: #FFFFFF;
+  --blush: #FBEDEA;
+  --sand: #F3E7DD;
+  --sage: #6B8F71;
+}
+
+/* Base Body Styling */
+html {
+  background-color: #FDFAF7;
+  color: #2B1A18;
+  font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #FDFAF7;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Accessibility: Visible Focus Rings in Crimson */
+:focus-visible {
+  outline: 2px solid #D42B24;
+  outline-offset: 2px;
+}
+
+/* Selection Color */
+::selection {
+  background-color: rgba(212, 43, 36, 0.2);
+  color: #7A1512;
+}
+
+/* Lenis Recommended CSS for Smooth Scrolling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

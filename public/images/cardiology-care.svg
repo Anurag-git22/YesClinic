@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="cardioBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDFAF7"/>
+      <stop offset="60%" stop-color="#FBEDEA"/>
+      <stop offset="100%" stop-color="#F3E7DD"/>
+    </linearGradient>
+    <radialGradient id="cardioGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#D42B24" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#FDFAF7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#cardioBg)"/>
+  <circle cx="400" cy="240" r="260" fill="url(#cardioGlow)"/>
+
+  <!-- Cardiac Rhythm & Heart Symbol Motif -->
+  <g transform="translate(400, 220)">
+    {/* Concentric rings */}
+    <circle cx="0" cy="0" r="110" stroke="#7A1512" stroke-opacity="0.15" stroke-width="2" fill="none"/>
+    <circle cx="0" cy="0" r="95" stroke="#D42B24" stroke-opacity="0.2" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+    {/* Cardiac ECG Line */}
+    <path d="M-150,0 L-60,0 L-45,-15 L-30,0 L-15,0 L-5,25 L10,-60 L25,45 L35,0 L60,0 L75,-12 L90,0 L150,0" stroke="#D42B24" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Typography Labels -->
+  <text x="400" y="420" text-anchor="middle" fill="#7A1512" font-family="system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="1">CARDIOLOGY & 2D ECHOCARDIOGRAPHY</text>
+  <text x="400" y="450" text-anchor="middle" fill="#D42B24" font-family="system-ui, sans-serif" font-size="14" font-weight="600">WITH DR. DIGAMBAR NAIK (CARDIOLOGY)</text>
+  <text x="400" y="475" text-anchor="middle" fill="#2B1A18" fill-opacity="0.6" font-family="system-ui, sans-serif" font-size="12">Non-Invasive Diagnostic Ultrasound & Cardiovascular Risk Triage</text>
+</svg>
