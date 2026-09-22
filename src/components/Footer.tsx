@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Seal } from './ui/Seal';
 import { clinicData } from '@/data/clinic';
-import { Phone, MapPin, Instagram, Mail, HeartPulse, ShieldAlert, ArrowUpRight } from 'lucide-react';
+import { Phone, MapPin, Instagram, Mail, HeartPulse, ShieldAlert, ArrowUpRight, ChevronDown, ChevronUp } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const [isDisclaimerExpanded, setIsDisclaimerExpanded] = React.useState(false);
+
   return (
     <footer className="relative bg-white border-t border-ivory-sand pt-16 pb-24 sm:pb-16 overflow-hidden">
       {/* Background Seal Watermark */}
@@ -155,14 +157,51 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Medical & Statutory Compliance Disclaimer - Fixed for mobile wrapping */}
-        <div className="py-6 border-b border-ivory-sand space-y-2 text-[11px] text-ink/65 leading-relaxed max-w-full">
-          <p className="break-words overflow-wrap-anywhere">
-            <strong className="font-bold text-ink/80">Statutory Compliance:</strong> {clinicData.legal.statutoryComplianceNote}
-          </p>
-          <p className="break-words overflow-wrap-anywhere">
-            <strong className="font-bold text-ink/80">Medical Disclaimer:</strong> {clinicData.legal.disclaimer}
-          </p>
+        {/* Medical & Statutory Compliance Disclaimer - Accordion on mobile, always visible on desktop */}
+        <div className="py-6 border-b border-ivory-sand">
+          {/* Mobile Accordion View */}
+          <div className="block sm:hidden">
+            <button
+              onClick={() => setIsDisclaimerExpanded(!isDisclaimerExpanded)}
+              className="w-full flex items-center justify-between text-left text-xs font-semibold text-maroon hover:text-crimson transition-colors"
+              aria-expanded={isDisclaimerExpanded}
+              aria-controls="disclaimer-content"
+            >
+              <span className="flex items-center gap-2">
+                <ShieldAlert className="h-3.5 w-3.5 text-crimson shrink-0" />
+                <span>Statutory Compliance & Medical Disclaimer</span>
+              </span>
+              {isDisclaimerExpanded ? (
+                <ChevronUp className="h-4 w-4 shrink-0" />
+              ) : (
+                <ChevronDown className="h-4 w-4 shrink-0" />
+              )}
+            </button>
+            
+            {isDisclaimerExpanded && (
+              <div 
+                id="disclaimer-content"
+                className="mt-3 space-y-2 text-[11px] text-ink/65 leading-relaxed animate-in slide-in-from-top-2 duration-300"
+              >
+                <p className="break-words overflow-wrap-anywhere">
+                  <strong className="font-bold text-ink/80">Statutory Compliance:</strong> {clinicData.legal.statutoryComplianceNote}
+                </p>
+                <p className="break-words overflow-wrap-anywhere">
+                  <strong className="font-bold text-ink/80">Medical Disclaimer:</strong> {clinicData.legal.disclaimer}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Always Visible View */}
+          <div className="hidden sm:block space-y-2 text-[11px] text-ink/65 leading-relaxed max-w-full">
+            <p className="break-words overflow-wrap-anywhere">
+              <strong className="font-bold text-ink/80">Statutory Compliance:</strong> {clinicData.legal.statutoryComplianceNote}
+            </p>
+            <p className="break-words overflow-wrap-anywhere">
+              <strong className="font-bold text-ink/80">Medical Disclaimer:</strong> {clinicData.legal.disclaimer}
+            </p>
+          </div>
         </div>
 
         {/* Bottom Legal Copyright Bar */}
