@@ -159,33 +159,33 @@ export const HomePage: React.FC = () => {
             </div>
           </Reveal>
 
-          {/* 4 Pillars Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* 4 Pillars Cards - 2 cards per row on mobile, 4 on desktop */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {clinicData.pillars.map((pillar, idx) => (
               <Reveal key={pillar.id} delay={0.06 * idx}>
-                <div className="h-full rounded-2xl border border-ivory-sand bg-white p-6 flex flex-col justify-between space-y-4 hover:shadow-spotlight hover:border-crimson/30 transition-all duration-300">
-                  <div className="space-y-3">
-                    <div className="h-12 w-12 rounded-xl bg-ivory-blush text-maroon flex items-center justify-center">
+                <div className="h-full rounded-2xl border border-ivory-sand bg-white p-4 sm:p-6 flex flex-col justify-between space-y-3 sm:space-y-4 hover:shadow-spotlight hover:border-crimson/30 transition-all duration-300">
+                  <div className="space-y-2 sm:space-y-3">
+                    <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-ivory-blush text-maroon flex items-center justify-center">
                       {getPillarIcon(pillar.icon)}
                     </div>
                     <div>
-                      <h3 className="font-display font-bold text-lg text-maroon">
+                      <h3 className="font-display font-bold text-sm sm:text-lg text-maroon leading-tight">
                         {pillar.title}
                       </h3>
 
                     </div>
-                    <p className="text-xs text-ink/75 leading-relaxed font-medium">
+                    <p className="text-[11px] sm:text-xs text-ink/75 leading-relaxed font-medium">
                       {pillar.shortDesc}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-ivory-sand/60">
+                  <div className="pt-2 sm:pt-3 border-t border-ivory-sand/60">
                     <Link
                       to="/services"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-crimson hover:text-maroon transition-colors group"
+                      className="inline-flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-crimson hover:text-maroon transition-colors group"
                     >
-                      <span>Explore Pillar</span>
-                      <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                      <span>Explore</span>
+                      <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </div>

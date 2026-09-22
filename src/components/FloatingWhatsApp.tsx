@@ -9,7 +9,7 @@ export const FloatingWhatsApp: React.FC = () => {
   )}`;
 
   return (
-    <div className="hidden lg:block fixed bottom-8 left-8 z-40">
+    <div className="hidden lg:block fixed bottom-24 right-8 z-40">
       <Magnetic strength={0.4}>
         <a
           href={whatsappUrl}

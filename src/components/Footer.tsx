@@ -155,13 +155,13 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Medical & Statutory Compliance Disclaimer */}
-        <div className="py-6 border-b border-ivory-sand space-y-2 text-[11px] text-ink/65 leading-relaxed">
-          <p>
-            <strong>Statutory Compliance:</strong> {clinicData.legal.statutoryComplianceNote}
+        {/* Medical & Statutory Compliance Disclaimer - Fixed for mobile wrapping */}
+        <div className="py-6 border-b border-ivory-sand space-y-2 text-[11px] text-ink/65 leading-relaxed max-w-full">
+          <p className="break-words overflow-wrap-anywhere">
+            <strong className="font-bold text-ink/80">Statutory Compliance:</strong> {clinicData.legal.statutoryComplianceNote}
           </p>
-          <p>
-            <strong>Medical Disclaimer:</strong> {clinicData.legal.disclaimer}
+          <p className="break-words overflow-wrap-anywhere">
+            <strong className="font-bold text-ink/80">Medical Disclaimer:</strong> {clinicData.legal.disclaimer}
           </p>
         </div>
 
