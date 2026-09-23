@@ -1,4 +1,5 @@
 import { clinicData } from '@/data/clinic';
+import { supabase, AppointmentRow } from './supabase';
 
 export interface AppointmentEnquiry {
   fullName: string;
@@ -15,12 +16,12 @@ export interface EnquiryResult {
   success: boolean;
   message: string;
   whatsappUrl?: string;
+  appointmentId?: number;
 }
 
 /**
  * Single submission gateway for appointment enquiries.
- * Can be effortlessly swapped with Formspree, EmailJS, Webhook, or custom backend API.
- * Currently defaults to formatting a clean, professional WhatsApp message and returning a deep link.
+ * Saves to Supabase database and provides WhatsApp deep link.
  */
 export async function submitEnquiry(enquiry: AppointmentEnquiry): Promise<EnquiryResult> {
   // Honeypot check - if filled, silently reject as spam bot
@@ -48,31 +49,66 @@ export async function submitEnquiry(enquiry: AppointmentEnquiry): Promise<Enquir
     };
   }
 
-  // Format WhatsApp enquiry text
-  const textLines = [
-    `*NEW APPOINTMENT ENQUIRY - YES DAY CARE CLINIC*`,
-    `----------------------------------------`,
-    `*Patient Name:* ${enquiry.fullName.trim()}`,
-    `*Phone:* ${enquiry.phone.trim()}`,
-    enquiry.email ? `*Email:* ${enquiry.email.trim()}` : null,
-    `*Preferred Date:* ${enquiry.preferredDate || 'Earliest available'}`,
-    `*Preferred Slot:* ${enquiry.preferredTime || 'Any convenient'}`,
-    `*Department / Doctor:* ${enquiry.serviceOrDoctor || 'General Consultation'}`,
-    enquiry.reasonForVisit ? `*Reason for Visit:* ${enquiry.reasonForVisit.trim()}` : null,
-    `----------------------------------------`,
-    `_Sent via Website Enquiry Portal_`
-  ].filter(Boolean);
+  try {
+    // Prepare appointment data for Supabase
+    const appointmentData: AppointmentRow = {
+      full_name: enquiry.fullName.trim(),
+      phone: enquiry.phone.trim(),
+      email: enquiry.email?.trim() || null,
+      preferred_date: enquiry.preferredDate || null,
+      preferred_time: enquiry.preferredTime || null,
+      service_or_doctor: enquiry.serviceOrDoctor || null,
+      reason_for_visit: enquiry.reasonForVisit?.trim() || null,
+      status: 'pending'
+    };
 
-  const formattedMessage = textLines.join('\n');
-  const encodedText = encodeURIComponent(formattedMessage);
-  const whatsappUrl = `https://wa.me/${clinicData.contact.whatsappNumber}?text=${encodedText}`;
+    // Insert into Supabase
+    const { data, error } = await supabase
+      .from('appointments')
+      .insert([appointmentData])
+      .select()
+      .single();
 
-  // Simulate network dispatch delay for realistic UI feedback
-  await new Promise((resolve) => setTimeout(resolve, 600));
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return {
+        success: false,
+        message: "Failed to save appointment. Please try again or call the clinic directly."
+      };
+    }
 
-  return {
-    success: true,
-    message: "Thank you. Your appointment request has been received. The clinic will contact you shortly.",
-    whatsappUrl
-  };
+    // Format WhatsApp enquiry text
+    const textLines = [
+      `*NEW APPOINTMENT ENQUIRY - YES DAY CARE CLINIC*`,
+      `----------------------------------------`,
+      `*Appointment ID:* #${data.id}`,
+      `*Patient Name:* ${enquiry.fullName.trim()}`,
+      `*Phone:* ${enquiry.phone.trim()}`,
+      enquiry.email ? `*Email:* ${enquiry.email.trim()}` : null,
+      `*Preferred Date:* ${enquiry.preferredDate || 'Earliest available'}`,
+      `*Preferred Slot:* ${enquiry.preferredTime || 'Any convenient'}`,
+      `*Department / Doctor:* ${enquiry.serviceOrDoctor || 'General Consultation'}`,
+      enquiry.reasonForVisit ? `*Reason for Visit:* ${enquiry.reasonForVisit.trim()}` : null,
+      `----------------------------------------`,
+      `_Sent via Website Enquiry Portal_`
+    ].filter(Boolean);
+
+    const formattedMessage = textLines.join('\n');
+    const encodedText = encodeURIComponent(formattedMessage);
+    const whatsappUrl = `https://wa.me/${clinicData.contact.whatsappNumber}?text=${encodedText}`;
+
+    return {
+      success: true,
+      message: "Thank you. Your appointment request has been received. The clinic will contact you shortly.",
+      whatsappUrl,
+      appointmentId: data.id
+    };
+
+  } catch (err) {
+    console.error('Unexpected error during appointment submission:', err);
+    return {
+      success: false,
+      message: "Something went wrong while submitting. Please call the clinic directly."
+    };
+  }
 }
